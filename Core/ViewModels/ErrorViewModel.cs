@@ -1,4 +1,4 @@
-namespace MyTasks.Models
+namespace MyTasks.Core.ViewModels
 {
     public class ErrorViewModel
     {

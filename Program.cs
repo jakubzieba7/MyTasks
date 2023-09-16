@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MyTasks.Data;
+using MyTasks.Persistence;
 
 namespace MyTasks
 {
