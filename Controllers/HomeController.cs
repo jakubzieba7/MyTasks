@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyTasks.Models;
+using MyTasks.Core.ViewModels;
 using System.Diagnostics;
 
 namespace MyTasks.Controllers
