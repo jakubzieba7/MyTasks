@@ -29,3 +29,7 @@
         </div>
     </div>
 </form>
+
+            <div>
+                @await Html.PartialAsync("_TasksTable.cshtml",Model.Tasks)
+            </div>
