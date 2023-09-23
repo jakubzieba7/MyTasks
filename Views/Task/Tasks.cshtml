@@ -1,0 +1,31 @@
+﻿@model TasksViewModel
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<h1 class="mb-3">Moje zadania</h1>
+
+<form id="filterForm">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            @Html.TextBoxFor(x => x.FilterTasks.Title, new { @class = "form-control mb-2", placeholder = "Tytuł" })
+        </div>
+        <div class="col-auto">
+            @Html.DropDownListFor(x => x.FilterTasks.CategoryId,
+            new SelectList(Model.Categories, "Id", "Name"),
+            "-- wybierz kategorię --",
+            new { @class = "form-control mb-2" })
+        </div>
+        <div class="col-auto">
+            <div class="form-check mb-2">
+                @Html.CheckBoxFor(x => x.FilterTasks.IsExecuted,
+                new { @class = "form-check-label" })
+
+                @Html.LabelFor(x => x.FilterTasks.IsExecuted)
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+        </div>
+    </div>
+</form>
