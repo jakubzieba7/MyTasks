@@ -80,5 +80,39 @@ namespace MyTasks.Controllers
 
             return RedirectToAction("Tasks");
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                _taskRepository.Delete(id, userId);
+            }
+            catch (Exception ex)
+            {
+                //logowanie do pliku
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = false});
+        }
+
+        [HttpPost]
+        public IActionResult Finish(int id)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                _taskRepository.Finish(id, userId);
+            }
+            catch (Exception ex)
+            {
+                //logowanie do pliku
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = false });
+        }
     }
 }

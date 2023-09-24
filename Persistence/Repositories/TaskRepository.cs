@@ -29,5 +29,15 @@ namespace MyTasks.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Delete(int id, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Finish(int id, string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
