@@ -26,5 +26,14 @@ namespace MyTasks.Controllers
 
             return View(vm);
         }
+
+        [HttpPost]
+        public IActionResult Tasks(TasksViewModel viewModel)
+        { 
+        var userId= User.GetUserId();
+            var tasks= _taskRepository.Get(userId,viewModel.FilterTasks.IsExecuted,viewModel.FilterTasks.CategoryId,viewModel.FilterTasks.Title);
+
+            return PartialView("_TasksTable", tasks);
+        }
     }
 }
