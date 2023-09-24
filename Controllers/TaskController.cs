@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Core.Models;
 using MyTasks.Core.ViewModels;
+using MyTasks.Persistence.Extensions;
 using MyTasks.Persistence.Repositories;
 using System.Security.Claims;
 
@@ -14,7 +15,7 @@ namespace MyTasks.Controllers
 
         public IActionResult Tasks()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.GetUserId();
 
             var vm = new TasksViewModel
             {
