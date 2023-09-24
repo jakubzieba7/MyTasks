@@ -1,4 +1,5 @@
-﻿using MyTasks.Core.Models.Domains;
+﻿using Microsoft.EntityFrameworkCore;
+using MyTasks.Core.Models.Domains;
 using Task = MyTasks.Core.Models.Domains.Task;
 
 namespace MyTasks.Persistence.Repositories
@@ -13,7 +14,15 @@ namespace MyTasks.Persistence.Repositories
 
         public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string title = null)
         {
-            throw new NotImplementedException();
+            var tasks = _context.Tasks.Include(x => x.Category).Where(x => x.UserId == userId && x.IsExecuted == isExecuted);
+
+            if (categoryId != 0)
+                tasks = tasks.Where(x => x.CategoryId == categoryId);
+
+            if (!string.IsNullOrWhiteSpace(title))
+                tasks = tasks.Where(x => x.Title.Contains(title));
+
+            return tasks.OrderBy(x => x.Term).ToList();
         }
 
         public IEnumerable<Category> GetCategories()
