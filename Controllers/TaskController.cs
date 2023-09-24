@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyTasks.Core.Models;
 using MyTasks.Core.Models.Domains;
 using MyTasks.Core.ViewModels;
+using MyTasks.Persistence;
 using MyTasks.Persistence.Extensions;
 using MyTasks.Persistence.Repositories;
 using System.Security.Claims;
@@ -13,7 +14,12 @@ namespace MyTasks.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private TaskRepository _taskRepository = new TaskRepository();
+        private TaskRepository _taskRepository;
+
+        public TaskController(ApplicationDbContext context)
+        {
+            _taskRepository=new TaskRepository(context);
+        }
 
         public IActionResult Tasks()
         {

@@ -5,6 +5,12 @@ namespace MyTasks.Persistence.Repositories
 {
     public class TaskRepository
     {
+        private ApplicationDbContext _context;
+        public TaskRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string title = null)
         {
             throw new NotImplementedException();
