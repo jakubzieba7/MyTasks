@@ -15,7 +15,17 @@ namespace MyTasks.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        internal Task Get(int id, string userId)
+        public Task Get(int id, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(Task task)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Task task)
         {
             throw new NotImplementedException();
         }

@@ -52,5 +52,33 @@ namespace MyTasks.Controllers
 
             return PartialView("_TasksTable", tasks);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Task(Task task)
+        {
+            var userId = User.GetUserId();
+            task.UserId = userId;
+
+            if (!ModelState.IsValid)
+            {
+                var vm = new TaskViewModel
+                {
+                    Task = task,
+                    Categories = _taskRepository.GetCategories(),
+                    Heading = task.Id == 0 ? "Dodawanie nowego zadania" : "Edytowanie zadania"
+                };
+
+                return View("Task", vm);
+
+            }
+
+            if (task.Id == 0)
+                _taskRepository.Add(task);
+            else
+                _taskRepository.Update(task);
+
+            return RedirectToAction("Tasks");
+        }
     }
 }
