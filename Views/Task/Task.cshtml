@@ -52,3 +52,22 @@
 
     <button type="submit" class="btn btn-primary btn-lg mt-2">Zapisz</button>
 }
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#Term').datepicker({
+                format: "dd-mm-yyyy",
+                language: "pl-PL",
+                multidate: false,
+                autoclose: true,
+                todayHighlight: true,
+                startDate: '-3d',
+                weekStart: 1,
+                todayBtn: true,
+                forceParse: false
+            });
+        });
+    </script>
+}
