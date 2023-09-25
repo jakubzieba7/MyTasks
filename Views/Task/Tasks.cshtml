@@ -52,14 +52,14 @@
                     error: function (data) {
                         alert(data.message);
                     },
-                    dataType:'html'
+                    dataType: 'html'
                 });
 
                 return false;
             });
         });
 
-        function deleteTask(id, btn) { 
+        function deleteTask(id, btn) {
             if (!confirm("Czy na pewno chcesz usunąć zadanie?"))
                 return;
 
@@ -67,7 +67,7 @@
                 type: 'POST',
                 url: "@Url.Action("Delete","Task")",
                 data: {
-                id:id
+                    id: id
                 },
                 success: function (data) {
                     if (data.success) {

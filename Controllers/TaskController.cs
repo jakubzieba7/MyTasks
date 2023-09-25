@@ -101,7 +101,7 @@ namespace MyTasks.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
 
-            return Json(new { success = false});
+            return Json(new { success = true});
         }
 
         [HttpPost]
@@ -118,7 +118,7 @@ namespace MyTasks.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
 
-            return Json(new { success = false });
+            return Json(new { success = true });
         }
     }
 }
