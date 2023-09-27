@@ -18,9 +18,9 @@ namespace MyTasks.Controllers
     {
         private ITaskService _taskService;
 
-        public TaskController(ApplicationDbContext context)
+        public TaskController(ITaskService taskService)
         {
-            _taskService = new TaskService(new UnitOfWork(context));
+            _taskService = taskService;
         }
 
         public IActionResult Tasks()
