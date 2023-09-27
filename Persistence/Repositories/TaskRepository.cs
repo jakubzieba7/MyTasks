@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Repositories;
 using Task = MyTasks.Core.Models.Domains.Task;
 
 namespace MyTasks.Persistence.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : ITaskRepository
     {
-        private ApplicationDbContext _context;
-        public TaskRepository(ApplicationDbContext context)
+        private IApplicationDbContext _context;
+        public TaskRepository(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -27,7 +29,7 @@ namespace MyTasks.Persistence.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories.OrderBy(x=>x.Name).ToList();
+            return _context.Categories.OrderBy(x => x.Name).ToList();
         }
 
         public Task Get(int id, string userId)
@@ -55,7 +57,7 @@ namespace MyTasks.Persistence.Repositories
 
         public void Delete(int id, string userId)
         {
-            var taskToDelete=_context.Tasks.Single(x => x.Id == id && x.UserId == userId);
+            var taskToDelete = _context.Tasks.Single(x => x.Id == id && x.UserId == userId);
 
             _context.Tasks.Remove(taskToDelete);
         }

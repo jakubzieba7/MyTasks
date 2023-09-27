@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Core.Models;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Service;
 using MyTasks.Core.ViewModels;
 using MyTasks.Persistence;
 using MyTasks.Persistence.Extensions;
@@ -15,7 +16,7 @@ namespace MyTasks.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private TaskService _taskService;
+        private ITaskService _taskService;
 
         public TaskController(ApplicationDbContext context)
         {
