@@ -38,9 +38,9 @@ namespace MyTasks.Controllers
             var userId = User.GetUserId();
             var category = id == 0 ? new Category { Id = 0, UserId = userId } : _categoryRepository.Get(id, userId);
 
-            var vm = new TaskViewModel
+            var vm = new CategoryViewModel
             {
-                Categories = _categoryRepository.GetCategories(userId),
+                Category = category,
                 Heading = id == 0 ? "Dodawanie nowej kategorii" : "Edytowanie kategorii"
             };
 

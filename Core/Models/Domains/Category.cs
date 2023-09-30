@@ -10,7 +10,9 @@ namespace MyTasks.Core.Models.Domains
             Tasks = new Collection<Task>();
         }
         public int Id { get; set; }
-        [Required]
+        [MaxLength(50)]
+        [Required(ErrorMessage = "Pole nazwa jest wymagane.")]
+        [Display(Name = "Nazwa")]
         public string Name { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
