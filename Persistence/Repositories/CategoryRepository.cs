@@ -37,5 +37,13 @@ namespace MyTasks.Persistence.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(int id, string userId)
+        {
+            var categoryToDelete = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
+
+            _context.Categories.Remove(categoryToDelete);
+
+            _context.SaveChanges();
+        }
     }
 }

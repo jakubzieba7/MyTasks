@@ -43,3 +43,39 @@
         </tbody>
     </table>
 </div>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        
+        function deleteCategory(id, btn) {
+            if (!confirm("Czy na pewno chcesz usunąć kategorię?"))
+                return;
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("Delete","Category")",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    if (data.success) {
+                        var row = btn.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                    }
+                    else {
+                        alert(data.message);
+                    }
+
+                },
+                error: function (data) {
+                    alert(data.message);
+                },
+                dataType: 'json'
+            });
+        }
+
+
+    </script>
+}

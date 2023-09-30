@@ -75,5 +75,22 @@ namespace MyTasks.Controllers
             return RedirectToAction("Categories");
         }
 
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                _categoryRepository.Delete(id, userId);
+            }
+            catch (Exception ex)
+            {
+                //logowanie do pliku
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = true });
+        }
+
     }
 }
