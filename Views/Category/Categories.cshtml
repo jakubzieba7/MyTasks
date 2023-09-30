@@ -1,0 +1,45 @@
+﻿@model TasksViewModel
+
+    @{
+    ViewData["Title"] = "Kategorie";
+    }
+
+<h1 class="mb-3">Moje kategorie</h1>
+
+<button class="btn btn-primary mt-3 mb-3" onclick='window.location.href="@Url.Action("Category","Category")"'>Dodaj kategorię</button>
+
+<div id="categoriesTable">
+    <table class="table mt-3 table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Categories.Any())
+            {
+                foreach (var category in Model.Categories)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Category","Category",new{id=category.Id})" class="fw-bold">@category.Id</a>
+                        </td>
+                        <td>@category.Name</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCategory('@category.Id',this)">Usuń</button>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="5">Brak wprowadzonych kategorii!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
