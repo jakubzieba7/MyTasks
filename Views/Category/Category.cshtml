@@ -20,9 +20,9 @@
         @Html.ValidationMessageFor(x=>x.Category.Name)
     </div>
 
-    <div class="btn-lg mt-3">
+    <div class="btn mt-3 mb-3">
         <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
-        <button type="submit" class="btn btn-secondary btn-lg">Wróć</button>
-
     </div>
+
+    <button class="btn btn-secondary btn-lg" onclick='window.location.href="@Url.Action("Categories","Category")"'>Wróć</button>
 }

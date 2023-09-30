@@ -47,6 +47,33 @@ namespace MyTasks.Controllers
             return View(vm);
         }
 
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Category(Category category)
+        {
+            var userId = User.GetUserId();
+            category.UserId = userId;
+
+            if (!ModelState.IsValid)
+            {
+                var vm = new CategoryViewModel
+                {
+                    Category = category,
+                    Heading = category.Id == 0 ? "Dodawanie nowej kategorii" : "Edytowanie kategorii"
+                };
+
+                return View("Category", vm);
+
+            }
+
+            if (category.Id == 0)
+                _categoryRepository.Add(category);
+            else
+                _categoryRepository.Update(category);
+
+            return RedirectToAction("Categories");
+        }
+
     }
 }
