@@ -1,5 +1,6 @@
 ﻿using MyTasks.Core.Models.Domains;
 using MyTasks.Persistence;
+using System.Net.Mail;
 
 namespace MyTasks.Persistence.Repositories
 {
@@ -25,6 +26,12 @@ namespace MyTasks.Persistence.Repositories
 
         public void Add(Category category)
         {
+            var categories = _context.Categories.Where(x => x.UserId == category.UserId);
+            var categoryLp = categories.Any() == true ? categories.ToList().Select(x => x.Lp).Last() : 0;
+
+            category.Lp = categoryLp + 1;
+
+
             _context.Categories.Add(category);
             _context.SaveChanges();
         }
@@ -41,8 +48,16 @@ namespace MyTasks.Persistence.Repositories
         public void Delete(int id, string userId)
         {
             var categoryToDelete = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
+            var categories = _context.Categories.Where(x => x.UserId == userId).ToList();
+            var counter = 1;
 
             _context.Categories.Remove(categoryToDelete);
+
+
+            foreach (var category in categories)
+            {
+                category.Lp = counter++;
+            }
 
             _context.SaveChanges();
         }
