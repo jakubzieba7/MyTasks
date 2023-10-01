@@ -31,7 +31,7 @@ namespace MyTasks.Controllers
             {
                 FilterTasks = new FilterTasks(),
                 Tasks = _taskService.Get(userId),
-                Categories = _taskService.GetCategories()
+                Categories = _taskService.GetCategories(userId)
             };
 
             return View(vm);
@@ -45,7 +45,7 @@ namespace MyTasks.Controllers
             var vm = new TaskViewModel
             {
                 Task = task,
-                Categories = _taskService.GetCategories(),
+                Categories = _taskService.GetCategories(userId),
                 Heading = id == 0 ? "Dodawanie nowego zadania" : "Edytowanie zadania"
             };
 
@@ -73,7 +73,7 @@ namespace MyTasks.Controllers
                 var vm = new TaskViewModel
                 {
                     Task = task,
-                    Categories = _taskService.GetCategories(),
+                    Categories = _taskService.GetCategories(userId),
                     Heading = task.Id == 0 ? "Dodawanie nowego zadania" : "Edytowanie zadania"
                 };
 
