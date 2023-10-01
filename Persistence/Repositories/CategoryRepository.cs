@@ -14,6 +14,7 @@ namespace MyTasks.Persistence.Repositories
 
         public IEnumerable<Category> GetCategories(string userId)
         {
+            AddDefaultCategory(userId);
             return _context.Categories.Where(x => x.UserId == userId).ToList();
         }
 
@@ -42,6 +43,21 @@ namespace MyTasks.Persistence.Repositories
             var categoryToDelete = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
 
             _context.Categories.Remove(categoryToDelete);
+
+            _context.SaveChanges();
+        }
+
+        public void AddDefaultCategory(string userId)
+        {
+            bool IsAnyCategoryExist = _context.Categories.Where(x => x.UserId == userId).Any() == true ? true : false;
+            Category defaultCategory = new Category()
+            {
+                UserId = userId,
+                Name = "Default",
+            };
+
+            if (!IsAnyCategoryExist)
+                _context.Categories.Add(defaultCategory);
 
             _context.SaveChanges();
         }
