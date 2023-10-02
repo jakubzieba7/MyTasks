@@ -1,14 +1,16 @@
-﻿using MyTasks.Core.Models.Domains;
+﻿using MyTasks.Core;
+using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Repositories;
 using MyTasks.Persistence;
 using System.Net.Mail;
 
 namespace MyTasks.Persistence.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository:ICategoryRepository
     {
-        private ApplicationDbContext _context;
+        private IApplicationDbContext _context;
 
-        public CategoryRepository(ApplicationDbContext context)
+        public CategoryRepository(IApplicationDbContext context)
         {
             _context = context;
         }

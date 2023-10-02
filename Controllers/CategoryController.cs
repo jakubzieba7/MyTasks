@@ -7,17 +7,18 @@ using MyTasks.Core.ViewModels;
 using MyTasks.Persistence;
 using MyTasks.Persistence.Extensions;
 using MyTasks.Persistence.Repositories;
+using MyTasks.Persistence.Services;
 
 namespace MyTasks.Controllers
 {
     [Authorize]
     public class CategoryController : Controller
     {
-        private CategoryRepository _categoryRepository;
+        private ICategoryService _categoryService;
 
-        public CategoryController(ApplicationDbContext _context)
+        public CategoryController(ICategoryService categoryService)
         {
-            _categoryRepository = new CategoryRepository(_context);
+            _categoryService = categoryService;
         }
 
 
@@ -27,7 +28,7 @@ namespace MyTasks.Controllers
 
             var vm = new TasksViewModel
             {
-                Categories = _categoryRepository.GetCategories(userId)
+                Categories = _categoryService.GetCategories(userId)
             };
 
             return View(vm);
@@ -36,7 +37,7 @@ namespace MyTasks.Controllers
         public IActionResult Category(int id = 0)
         {
             var userId = User.GetUserId();
-            var category = id == 0 ? new Category { Id = 0, UserId = userId } : _categoryRepository.Get(id, userId);
+            var category = id == 0 ? new Category { Id = 0, UserId = userId } : _categoryService.Get(id, userId);
 
             var vm = new CategoryViewModel
             {
@@ -68,9 +69,9 @@ namespace MyTasks.Controllers
             }
 
             if (category.Id == 0)
-                _categoryRepository.Add(category);
+                _categoryService.Add(category);
             else
-                _categoryRepository.Update(category);
+                _categoryService.Update(category);
 
             return RedirectToAction("Categories");
         }
@@ -81,7 +82,7 @@ namespace MyTasks.Controllers
             try
             {
                 var userId = User.GetUserId();
-                _categoryRepository.Delete(id, userId);
+                _categoryService.Delete(id, userId);
             }
             catch (Exception ex)
             {

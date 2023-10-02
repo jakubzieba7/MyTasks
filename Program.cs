@@ -25,6 +25,7 @@ namespace MyTasks
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<ITaskService,TaskService>();
+            builder.Services.AddScoped<ICategoryService,CategoryService>();
             builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
