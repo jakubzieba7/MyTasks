@@ -44,6 +44,7 @@ namespace MyTasks.Persistence.Services
         public void AddDefaultCategory(string userId)
         {
             _unitOfWork.Category.AddDefaultCategory(userId);
+            _unitOfWork.Complete();
         }
     }
 }

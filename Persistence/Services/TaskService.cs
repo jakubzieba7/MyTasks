@@ -22,11 +22,6 @@ namespace MyTasks.Persistence.Services
             return _unitOfWork.Task.Get(userId, isExecuted, categoryId, title);
         }
 
-        public IEnumerable<Category> GetCategories(string userId)
-        {
-            return _unitOfWork.Task.GetCategories(userId);
-        }
-
         public Task Get(int id, string userId)
         {
             return _unitOfWork.Task.Get(id, userId);

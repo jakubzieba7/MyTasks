@@ -15,6 +15,7 @@ namespace MyTasks.Core.Models.Domains
         [Required(ErrorMessage = "Pole nazwa jest wymagane.")]
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
+        [Required]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public ICollection<Task> Tasks { get; set; }

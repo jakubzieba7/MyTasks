@@ -27,11 +27,6 @@ namespace MyTasks.Persistence.Repositories
             return tasks.OrderBy(x => x.Term).ToList();
         }
 
-        public IEnumerable<Category> GetCategories(string userId)
-        {
-            return _context.Categories.Where(x=>x.UserId==userId).OrderBy(x => x.Name).ToList();
-        }
-
         public Task Get(int id, string userId)
         {
             var task = _context.Tasks.Single(x => x.Id == id && x.UserId == userId);

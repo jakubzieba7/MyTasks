@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Core.Models;
-using MyTasks.Core.Models.Domains;
 using MyTasks.Core.Service;
 using MyTasks.Core.ViewModels;
-using MyTasks.Persistence;
 using MyTasks.Persistence.Extensions;
-using MyTasks.Persistence.Repositories;
-using MyTasks.Persistence.Services;
-using System.Security.Claims;
 using Task = MyTasks.Core.Models.Domains.Task;
 
 namespace MyTasks.Controllers
@@ -17,10 +12,12 @@ namespace MyTasks.Controllers
     public class TaskController : Controller
     {
         private ITaskService _taskService;
+        private ICategoryService _categoryService;
 
-        public TaskController(ITaskService taskService)
+        public TaskController(ITaskService taskService, ICategoryService categoryService)
         {
             _taskService = taskService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Tasks()
@@ -31,7 +28,7 @@ namespace MyTasks.Controllers
             {
                 FilterTasks = new FilterTasks(),
                 Tasks = _taskService.Get(userId),
-                Categories = _taskService.GetCategories(userId)
+                Categories = _categoryService.GetCategories(userId)
             };
 
             return View(vm);
@@ -45,7 +42,7 @@ namespace MyTasks.Controllers
             var vm = new TaskViewModel
             {
                 Task = task,
-                Categories = _taskService.GetCategories(userId),
+                Categories = _categoryService.GetCategories(userId),
                 Heading = id == 0 ? "Dodawanie nowego zadania" : "Edytowanie zadania"
             };
 
@@ -73,7 +70,7 @@ namespace MyTasks.Controllers
                 var vm = new TaskViewModel
                 {
                     Task = task,
-                    Categories = _taskService.GetCategories(userId),
+                    Categories = _categoryService.GetCategories(userId),
                     Heading = task.Id == 0 ? "Dodawanie nowego zadania" : "Edytowanie zadania"
                 };
 

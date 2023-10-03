@@ -25,19 +25,15 @@ namespace MyTasks.Controllers
         public IActionResult Categories()
         {
             var userId = User.GetUserId();
+            var categories = _categoryService.GetCategories(userId);
 
-            var vm = new TasksViewModel
-            {
-                Categories = _categoryService.GetCategories(userId)
-            };
-
-            return View(vm);
+            return View(categories);
         }
 
         public IActionResult Category(int id = 0)
         {
             var userId = User.GetUserId();
-            var category = id == 0 ? new Category { Id = 0, UserId = userId } : _categoryService.Get(id, userId);
+            var category = id == 0 ? new Category { UserId = userId } : _categoryService.Get(id, userId);
 
             var vm = new CategoryViewModel
             {
@@ -55,6 +51,8 @@ namespace MyTasks.Controllers
         {
             var userId = User.GetUserId();
             category.UserId = userId;
+
+            ModelState.Remove("category.UserId");
 
             if (!ModelState.IsValid)
             {

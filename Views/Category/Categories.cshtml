@@ -1,4 +1,4 @@
-﻿@model TasksViewModel
+﻿@model IEnumerable<MyTasks.Core.Models.Domains.Category>
 
 @{
     ViewData["Title"] = "Kategorie";
@@ -18,9 +18,9 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model != null && Model.Categories.Any())
+            @if (Model != null && Model.Any())
             {
-                foreach (var category in Model.Categories)
+                foreach (var category in Model)
                 {
                     <tr>
                         <td>

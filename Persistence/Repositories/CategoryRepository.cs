@@ -1,12 +1,13 @@
 ﻿using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
 using MyTasks.Core.Repositories;
+using MyTasks.Core.Service;
 using MyTasks.Persistence;
 using System.Net.Mail;
 
 namespace MyTasks.Persistence.Repositories
 {
-    public class CategoryRepository:ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private IApplicationDbContext _context;
 
@@ -33,9 +34,7 @@ namespace MyTasks.Persistence.Repositories
 
             category.Lp = categoryLp + 1;
 
-
             _context.Categories.Add(category);
-            _context.SaveChanges();
         }
 
         public void Update(Category category)
@@ -43,8 +42,6 @@ namespace MyTasks.Persistence.Repositories
             var categoryToUpdate = _context.Categories.Single(x => x.Id == category.Id && x.UserId == category.UserId);
 
             categoryToUpdate.Name = category.Name;
-
-            _context.SaveChanges();
         }
 
         public void Delete(int id, string userId)
@@ -54,7 +51,6 @@ namespace MyTasks.Persistence.Repositories
             var counter = 1;
 
             _context.Categories.Remove(categoryToDelete);
-
 
             foreach (var category in categories)
             {
@@ -75,8 +71,6 @@ namespace MyTasks.Persistence.Repositories
 
             if (!IsAnyCategoryExist)
                 _context.Categories.Add(defaultCategory);
-
-            _context.SaveChanges();
         }
     }
 }
