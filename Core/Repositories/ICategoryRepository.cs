@@ -12,6 +12,7 @@ namespace MyTasks.Core.Repositories
         void Add(Category category);
 
         void Update(Category category);
+        public void UpdateId(string userId);
 
         void Delete(int id, string userId);
 

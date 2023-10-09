@@ -49,7 +49,7 @@
     {
     <script type="text/javascript">
         
-        function deleteCategory(id, btn) {
+        function deleteCategory(categoryId, btn) {
             if (!confirm("Czy na pewno chcesz usunąć kategorię?"))
                 return;
 
@@ -57,12 +57,28 @@
                 type: 'POST',
                 url: "@Url.Action("Delete","Category")",
                 data: {
-                    id: id
+                    categoryId: categoryId
                 },
                 success: function (data) {
                     if (data.success) {
                         var row = btn.parentNode.parentNode;
                         row.parentNode.removeChild(row);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: "@Url.Action("UpdateId","Category")",
+                            data: {
+                            },
+                            success: 
+                             function (data) {
+                                location.reload();
+                             },
+                            error: function (data) {
+                                alert(data.Message);
+                            },
+                            dataType: 'json'
+
+                        });
                     }
                     else {
                         alert(data.message);
@@ -75,7 +91,6 @@
                 dataType: 'json'
             });
         }
-
 
     </script>
 }

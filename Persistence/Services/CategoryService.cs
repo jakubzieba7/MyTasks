@@ -35,6 +35,12 @@ namespace MyTasks.Persistence.Services
             _unitOfWork.Complete();
         }
 
+        public void UpdateId(string userId)
+        {
+            _unitOfWork.Category.UpdateId(userId);
+            _unitOfWork.Complete();
+        }
+
         public void Delete(int id, string userId)
         {
             _unitOfWork.Category.Delete(id, userId);

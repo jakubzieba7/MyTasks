@@ -12,6 +12,7 @@ namespace MyTasks.Core.Service
         public void Add(Category category);
 
         public void Update(Category category);
+        public void UpdateId(string userId);
 
         public void Delete(int id, string userId);
 

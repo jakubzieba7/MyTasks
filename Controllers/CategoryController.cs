@@ -75,12 +75,30 @@ namespace MyTasks.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int categoryId)
         {
             try
             {
                 var userId = User.GetUserId();
-                _categoryService.Delete(id, userId);
+                _categoryService.Delete(categoryId, userId);
+            }
+            catch (Exception ex)
+            {
+                //logowanie do pliku
+                return Json(new { success = false, message = ex.Message });
+            }
+
+            return Json(new { success = true });
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateId()
+        {
+            try
+            {
+                var userId = User.GetUserId();
+                _categoryService.UpdateId(userId);
             }
             catch (Exception ex)
             {

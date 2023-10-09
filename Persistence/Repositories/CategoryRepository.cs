@@ -3,6 +3,7 @@ using MyTasks.Core.Models.Domains;
 using MyTasks.Core.Repositories;
 using MyTasks.Core.Service;
 using MyTasks.Persistence;
+using System.Diagnostics.Metrics;
 using System.Net.Mail;
 
 namespace MyTasks.Persistence.Repositories
@@ -44,20 +45,23 @@ namespace MyTasks.Persistence.Repositories
             categoryToUpdate.Name = category.Name;
         }
 
-        public void Delete(int id, string userId)
+        public void UpdateId(string userId)
         {
-            var categoryToDelete = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
-            var categories = _context.Categories.Where(x => x.UserId == userId).ToList();
+            var categories = _context.Categories.Where(x => x.UserId == userId);
             var counter = 1;
-
-            _context.Categories.Remove(categoryToDelete);
 
             foreach (var category in categories)
             {
                 category.Lp = counter++;
             }
+        }
 
-            _context.SaveChanges();
+        public void Delete(int id, string userId)
+        {
+            var categoryToDelete = _context.Categories.Single(x => x.Id == id && x.UserId == userId);
+            var categories = _context.Categories.Where(x => x.UserId == userId).ToList();
+
+            _context.Categories.Remove(categoryToDelete);
         }
 
         public void AddDefaultCategory(string userId)
