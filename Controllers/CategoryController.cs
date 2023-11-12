@@ -25,6 +25,7 @@ namespace MyTasks.Controllers
         public IActionResult Categories()
         {
             var userId = User.GetUserId();
+            _categoryService.AddDefaultCategory(userId);
             var categories = _categoryService.GetCategories(userId);
 
             return View(categories);

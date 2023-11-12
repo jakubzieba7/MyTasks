@@ -19,7 +19,6 @@ namespace MyTasks.Persistence.Repositories
 
         public IEnumerable<Category> GetCategories(string userId)
         {
-            AddDefaultCategory(userId);
             return _context.Categories.Where(x => x.UserId == userId).ToList();
         }
 
